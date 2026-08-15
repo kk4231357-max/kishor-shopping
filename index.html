@@ -111,8 +111,8 @@ button{border:0;cursor:pointer}
 <button onclick="category('Shoes')">Shoes</button>
 <button onclick="category('Home')">Home</button>
 <button onclick="showPage('orders')">📦 Orders</button>
-<button onclick="showPage('seller')">🏪 Seller</button>
-<button onclick="showPage('admin')">⚙️ Admin</button>
+<button type="button" onclick="openSeller()">🏪 Seller</button>
+<button type="button" onclick="openSeller()">🏪 Seller</button>
 </nav>
 
 <main class="container">
@@ -720,7 +720,28 @@ money(db.orders.reduce((a,o)=>a+o.total,0));
 
 renderProducts();
 updateCount();
+function openSeller(){
+    showPage("seller");
 
+    document.getElementById("uploadPanel").style.display = "block";
+    document.getElementById("sellerProducts").style.display = "none";
+    document.getElementById("sellerOrders").style.display = "none";
+    document.getElementById("sellerEarnings").style.display = "none";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}function openSeller(){
+    showPage("seller");
+
+    document.getElementById("uploadPanel").style.display = "block";
+    document.getElementById("sellerProducts").style.display = "none";
+    document.getElementById("sellerOrders").style.display = "none";
+    document.getElementById("sellerEarnings").style.display = "none";
+
+    window.scrollTo(0,0);
+}
 </script>
 </body>
 </html>
