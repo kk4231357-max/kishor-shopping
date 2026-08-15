@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kishor Shopping</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,Helvetica,sans-serif;
+ background:#f5f6f8;
+ color:#222
+}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer;border:0}
+
+.top{
+ background:#0755c9;
+ color:#fff;
+ padding:7px 5%;
+ display:flex;
+ justify-content:space-between;
+ font-size:13px
+}
+
+.header{
+ background:#2874f0;
+ color:#fff;
+ padding:14px 5%;
+ display:flex;
+ align-items:center;
+ gap:18px;
+ flex-wrap:wrap
+}
+
+.logo{
+ font-size:27px;
+ font-weight:bold;
+ white-space:nowrap
+}
+
+.logo span{color:#ffd400}
+
+.search{
+ flex:1;
+ min-width:250px;
+ position:relative
+}
+
+.search input{
+ width:100%;
+ padding:13px 50px 13px 16px;
+ border:0;
+ border-radius:7px;
+ outline:0
+}
+
+.search button{
+ position:absolute;
+ right:0;
+ top:0;
+ height:100%;
+ width:50px;
+ background:#ffca05;
+ border-radius:0 7px 7px 0
+}
+
+.head-btn{
+ background:#fff;
+ color:#0755c9;
+ padding:11px 15px;
+ border-radius:6px;
+ font-weight:bold
+}
+
+.nav{
+ background:#fff;
+ padding:10px 5%;
+ display:flex;
+ gap:8px;
+ overflow:auto;
+ box-shadow:0 2px 7px #ddd
+}
+
+.nav button{
+ background:#fff;
+ color:#1555ad;
+ padding:9px 14px;
+ white-space:nowrap
+}
+
+.container{
+ max-width:1250px;
+ margin:auto;
+ padding:20px 15px
+}
+
+.page{display:none}
+.page.active{display:block}
+
+.hero{
+ background:linear-gradient(120deg,#0736a9,#2874f0);
+ color:#fff;
+ border-radius:14px;
+ padding:40px 30px;
+ margin-bottom:20px
+}
+
+.hero h1{font-size:36px;margin:0 0 10px}
+.hero p{font-size:17px}
+.hero button{
+ padding:12px 22px;
+ background:#ffd000;
+ border-radius:6px;
+ font-weight:bold
+}
+
+.panel{
+ background:#fff;
+ padding:20px;
+ border-radius:12px;
+ margin-bottom:20px;
+ box-shadow:0 1px 5px #ddd
+}
+
+.product-grid{
+ display:grid;
+ grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
+ gap:18px
+}
+
+.product{
+ background:#fff;
+ border:1px solid #e1e1e1;
+ border-radius:10px;
+ padding:10px;
+ transition:.2s
+}
+
+.product:hover{
+ transform:translateY(-3px);
+ box-shadow:0 5px 16px #ddd
+}
+
+.product img{
+ width:100%;
+ height:190px;
+ object-fit:cover;
+ border-radius:8px;
+ background:#eee
+}
+
+.product h3{margin:9px 0 5px}
+.muted{color:#777;font-size:13px}
+.desc{font-size:14px;color:#666;min-height:35px}
+
+.price{
+ font-size:20px;
+ font-weight:bold;
+ margin:8px 0
+}
+
+.old{
+ color:#888;
+ text-decoration:line-through;
+ font-size:13px;
+ margin-left:5px
+}
+
+.rating{color:#f59e0b;font-size:13px}
+
+.actions{
+ display:flex;
+ gap:7px
+}
+
+.actions button{
+ flex:1;
+ padding:10px;
+ border-radius:6px
+}
+
+.primary{
+ background:#2874f0;
+ color:#fff;
+ padding:11px 16px;
+ border-radius:6px;
+ font-weight:bold
+}
+
+.green{
+ background:#16a34a;
+ color:#fff;
+ padding:10px 15px;
+ border-radius:6px
+}
+
+.red{
+ background:#ef4444;
+ color:#fff;
+ padding:10px 15px;
+ border-radius:6px
+}
+
+.light{
+ background:#edf3ff;
+ color:#175bc0;
+ padding:10px 15px;
+ border-radius:6px
+}
+
+.filters{
+ display:flex;
+ gap:10px;
+ flex-wrap:wrap;
+ margin-bottom:20px
+}
+
+.filters select{
+ padding:10px;
+ border:1px solid #ccc;
+ border-radius:6px
+}
+
+/* CART */
+
+.cart-row{
+ display:grid;
+ grid-template-columns:75px 1fr auto;
+ gap:15px;
+ align-items:center;
+ padding:15px 0;
+ border-bottom:1px solid #eee
+}
+
+.cart-row img{
+ width:75px;
+ height:75px;
+ object-fit:cover;
+ border-radius:8px
+}
+
+.qty{
+ display:flex;
+ align-items:center;
+ gap:7px;
+ margin-top:8px
+}
+
+.qty button{
+ width:30px;
+ height:30px;
+ border-radius:5px;
+ background:#eaf1ff;
+ color:#125ac2
+}
+
+.summary{
+ max-width:500px;
+ margin-left:auto
+}
+
+.sum-line{
+ display:flex;
+ justify-content:space-between;
+ padding:7px 0
+}
+
+.final{
+ font-size:21px;
+ font-weight:bold;
+ border-top:1px solid #ddd;
+ padding-top:12px
+}
+
+/* COUPON */
+
+.coupon{
+ display:flex;
+ gap:8px;
+ margin:15px 0
+}
+
+.coupon input{
+ flex:1;
+ padding:11px;
+ border:1px solid #bbb;
+ border-radius:6px
+}
+
+.coupon button{
+ background:#2874f0;
+ color:#fff;
+ padding:10px 17px;
+ border-radius:6px
+}
+
+.coupon-msg{
+ font-size:14px;
+ margin-top:-8px;
+ margin-bottom:10px
+}
+
+.success-text{color:#16803c}
+.error-text{color:#d62828}
+
+/* FORM */
+
+.form-grid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:15px
+}
+
+.form-group{
+ display:flex;
+ flex-direction:column;
+ gap:5px
+}
+
+.full{grid-column:1/-1}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+ padding:11px;
+ border:1px solid #ccc;
+ border-radius:6px;
+ outline:0
+}
+
+/* STATS */
+
+.stats{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:15px
+}
+
+.stat{
+ background:#f1f6ff;
+ padding:18px;
+ border-radius:10px
+}
+
+.stat span{color:#777}
+.stat strong{
+ display:block;
+ font-size:25px;
+ margin-top:7px
+}
+
+/* ORDERS */
+
+.order{
+ border:1px solid #ddd;
+ border-radius:10px;
+ padding:15px;
+ margin-bottom:15px
+}
+
+.order-head{
+ display:flex;
+ justify-content:space-between;
+ gap:10px;
+ flex-wrap:wrap
+}
+
+.status{
+ background:#e8f7ed;
+ color:#15803d;
+ padding:6px 11px;
+ border-radius:20px;
+ font-size:13px
+}
+
+/* MODAL */
+
+.modal{
+ position:fixed;
+ inset:0;
+ background:rgba(0,0,0,.6);
+ display:none;
+ align-items:center;
+ justify-content:center;
+ padding:15px;
+ z-index:50
+}
+
+.modal.show{display:flex}
+
+.modal-box{
+ background:#fff;
+ width:100%;
+ max-width:600px;
+ max-height:90vh;
+ overflow:auto;
+ border-radius:12px;
+ padding:20px
+}
+
+.modal-head{
+ display:flex;
+ justify-content:space-between;
+ align-items:center
+}
+
+.close{
+ background:#eee;
+ padding:7px 11px;
+ border-radius:5px
+}
+
+.toast{
+ position:fixed;
+ right:20px;
+ bottom:20px;
+ background:#222;
+ color:#fff;
+ padding:13px 18px;
+ border-radius:7px;
+ display:none;
+ z-index:100
+}
+
+.toast.show{display:block}
+
+.footer{
+ background:#073b80;
+ color:#fff;
+ margin-top:30px;
+ padding:35px 6%
+}
+
+.footer-grid{
+ display:grid;
+ grid-template-columns:2fr 1fr 1fr 1fr;
+ gap:25px
+}
+
+.footer h2{color:#ffd000}
+
+@media(max-width:700px){
+ .logo{font-size:22px}
+ .hero h1{font-size:28px}
+ .form-grid{grid-template-columns:1fr}
+ .full{grid-column:auto}
+ .stats{grid-template-columns:1fr 1fr}
+ .cart-row{grid-template-columns:60px 1fr}
+ .cart-price{grid-column:2}
+ .footer-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+
+<body>
+<!-- KISHOR SHOPPING HELP CENTER -->
+<div id="kishorHelpCenter" style="
+    background:#ffffff;
+    padding:25px;
+    margin:25px 0;
+    border-radius:12px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.10);
+    font-family:Arial,sans-serif;
+">
+
+    <h2 style="margin-top:0;color:#2874f0;">
+        🆘 Help Center
+    </h2>
+
+    <p style="color:#666;">
+        किसी भी समस्या या सहायता के लिए हमसे संपर्क करें।
+    </p>
+
+    <div style="
+        display:flex;
+        flex-wrap:wrap;
+        gap:12px;
+        margin-top:15px;
+    ">
+
+        <!-- CALL -->
+        <a href="tel:8406967232" style="
+            text-decoration:none;
+            background:#2874f0;
+            color:white;
+            padding:12px 18px;
+            border-radius:7px;
+            font-weight:bold;
+        ">
+            📞 Call Us
+        </a>
+
+        <!-- EMAIL -->
+        <a href="mailto:Kishor08122006@gmail.com" style="
+            text-decoration:none;
+            background:#16a34a;
+            color:white;
+            padding:12px 18px;
+            border-radius:7px;
+            font-weight:bold;
+        ">
+            📧 Email Us
+        </a>
+
+    </div>
+
+    <div style="
+        margin-top:18px;
+        padding:15px;
+        background:#f5f7fb;
+        border-radius:8px;
+        line-height:1.8;
+    ">
+
+        <b>📞 Contact Number:</b>
+        <a href="tel:8406967232">
+            8406967232
+        </a>
+        <br>
+
+        <b>📧 Email:</b>
+        <a href="mailto:Kishor08122006@gmail.com">
+            Kishor08122006@gmail.com
+        </a>
+
+        <br>
+
+        <b>🕐 Customer Support:</b>
+        9:00 AM – 6:00 PM
+
+    </div>
+
+</div>
+<div class="top">
+ <span>🚚 ₹499 से ऊपर Free Delivery</span>
+ <span>↩️ Easy Returns &nbsp; | &nbsp; 📞 Help</span>
+</div>
+
+<header class="header">
+
+ <div class="logo">
+  Kishor <span>Shopping</span>
+ </div>
+
+ <div class="search">
+  <input
+   id="search"
+   placeholder="Search products..."
+   oninput="renderProducts()"
+  >
+  <button>🔍</button>
+ </div>
+
+ <button class="head-btn" onclick="showPage('wishlist')">
+  ❤️ Wishlist
+ </button>
+
+ <button class="head-btn" onclick="showPage('cart')">
+  🛒 Cart <span id="cartCount">0</span>
+ </button>
+
+ <button class="head-btn" onclick="login()">
+  👤 Account
+ </button>
+
+</header>
+
+<nav class="nav">
+ <button onclick="showPage('home')">🏠 Home</button>
+ <button onclick="category('All')">All</button>
+ <button onclick="category('Fashion')">Fashion</button>
+ <button onclick="category('Electronics')">Electronics</button>
+ <button onclick="category('Shoes')">Shoes</button>
+ <button onclick="category('Home')">Home</button>
+ <button onclick="showPage('orders')">📦 Orders</button>
+ <button onclick="showPage('seller')">🏪 Seller</button>
+ <button onclick="showPage('admin')">⚙️ Admin</button>
+</nav>
+
+<main class="container">
+
+<!-- HOME -->
+
+<section id="home" class="page active">
+
+ <div class="hero">
+  <h1>Big Shopping, Better Price</h1>
+  <p>
+   Fashion, Electronics, Shoes और Home products
+   एक ही जगह।
+  </p>
+  <button onclick="category('All')">
+   Shop Now →
+  </button>
+ </div>
+
+ <div class="panel">
+
+  <div class="filters">
+
+   <select id="category" onchange="renderProducts()">
+    <option value="All">All Categories</option>
+    <option>Fashion</option>
+    <option>Electronics</option>
+    <option>Shoes</option>
+    <option>Home</option>
+   </select>
+
+   <select id="sort" onchange="renderProducts()">
+    <option value="default">Sort Products</option>
+    <option value="low">Price Low to High</option>
+    <option value="high">Price High to Low</option>
+    <option value="new">Newest</option>
+   </select>
+
+  </div>
+
+  <h2>🔥 Best Selling Products</h2>
+
+  <div id="products" class="product-grid"></div>
+
+ </div>
+
+</section>
+
+<!-- CART -->
+
+<section id="cart" class="page">
+
+ <div class="panel">
+
+  <h2>🛒 My Cart</h2>
+
+  <div id="cartList"></div>
+
+  <div class="summary">
+
+   <div class="coupon">
+    <input
+     id="couponInput"
+     placeholder="Coupon code जैसे KISHOR100"
+    >
+    <button onclick="applyCoupon()">
+     Apply
+    </button>
+   </div>
+
+   <div
+    id="couponMsg"
+    class="coupon-msg"
+   ></div>
+
+   <div class="sum-line">
+    <span>Subtotal</span>
+    <b id="subtotal">₹0</b>
+   </div>
+
+   <div class="sum-line">
+    <span>Coupon Discount</span>
+    <b id="discount">- ₹0</b>
+   </div>
+
+   <div class="sum-line">
+    <span>Delivery</span>
+    <b id="delivery">₹0</b>
+   </div>
+
+   <div class="sum-line final">
+    <span>Final Total</span>
+    <b id="finalTotal">₹0</b>
+   </div>
+
+   <br>
+
+   <button
+    class="primary"
+    style="width:100%"
+    onclick="checkout()"
+   >
+    Proceed to Checkout
+   </button>
+
+  </div>
+
+ </div>
+
+</section>
+
+<!-- WISHLIST -->
+
+<section id="wishlist" class="page">
+
+ <div class="panel">
+  <h2>❤️ Wishlist</h2>
+  <div id="wishlist" class="product-grid"></div>
+ </div>
+
+</section>
+
+<!-- ORDERS -->
+
+<section id="orders" class="page">
+
+ <div class="panel">
+
+  <h2>📦 My Orders</h2>
+
+  <div id="ordersList"></div>
+
+ </div>
+
+</section>
+
+<!-- SELLER -->
+
+<section id="seller" class="page">
+
+ <div class="panel">
+
+  <h2>🏪 Seller Panel</h2>
+
+  <button class="light" onclick="sellerTab('upload')">
+   ➕ Upload Product
+  </button>
+
+  <button class="light" onclick="sellerTab('products')">
+   📦 My Products
+  </button>
+
+  <button class="light" onclick="sellerTab('orders')">
+   🛍️ Orders
+  </button>
+
+  <button class="light" onclick="sellerTab('earnings')">
+   💰 Earnings
+  </button>
+
+ </div>
+
+ <div id="uploadPanel" class="panel">
+
+  <h3>Upload Product</h3>
+
+  <form onsubmit="saveProduct(event)">
+
+   <input type="hidden" id="editId">
+
+   <div class="form-grid">
+
+    <div class="form-group">
+     <label>Product Name</label>
+     <input id="pName" required>
+    </div>
+
+    <div class="form-group">
+     <label>Price</label>
+     <input id="pPrice" type="number" required>
+    </div>
+
+    <div class="form-group">
+     <label>Old Price</label>
+     <input id="pOld" type="number">
+    </div>
+
+    <div class="form-group">
+     <label>Stock</label>
+     <input id="pStock" type="number" value="10">
+    </div>
+
+    <div class="form-group">
+     <label>Category</label>
+     <select id="pCategory">
+      <option>Fashion</option>
+      <option>Electronics</option>
+      <option>Shoes</option>
+      <option>Home</option>
+     </select>
+    </div>
+
+    <div class="form-group">
+     <label>Image URL</label>
+     <input id="pImage">
+    </div>
+
+    <div class="form-group full">
+     <label>Description</label>
+     <textarea id="pDesc" rows="4"></textarea>
+    </div>
+
+   </div>
+
+   <br>
+
+   <button class="primary">
+    Save Product
+   </button>
+
+   <button
+    type="button"
+    class="light"
+    onclick="clearProduct()"
+   >
+    Clear
+   </button>
+
+  </form>
+
+ </div>
+
+ <div id="sellerProducts" class="panel" style="display:none"></div>
+
+ <div id="sellerOrders" class="panel" style="display:none"></div>
+
+ <div id="sellerEarnings" class="panel" style="display:none"></div>
+
+</section>
+
+<!-- ADMIN -->
+
+<section id="admin" class="page">
+
+ <div class="panel">
+
+  <h2>⚙️ Admin Dashboard</h2>
+
+  <div class="stats">
+
+   <div class="stat">
+    <span>Products</span>
+    <strong id="aProducts">0</strong>
+   </div>
+
+   <div class="stat">
+    <span>Orders</span>
+    <strong id="aOrders">0</strong>
+   </div>
+
+   <div class="stat">
+    <span>Customers</span>
+    <strong id="aCustomers">0</strong>
+   </div>
+
+   <div class="stat">
+    <span>Sales</span>
+    <strong id="aSales">₹0</strong>
+   </div>
+
+  </div>
+
+ </div>
+
+ <div class="panel">
+
+  <h2>🏷️ Coupon Management</h2>
+
+  <form onsubmit="addCoupon(event)">
+
+   <div class="form-grid">
+
+    <div class="form-group">
+     <label>Coupon Code</label>
+     <input id="cCode" placeholder="KISHOR100" required>
+    </div>
+
+    <div class="form-group">
+     <label>Discount Type</label>
+     <select id="cType">
+      <option value="fixed">₹ Fixed</option>
+      <option value="percent">% Percentage</option>
+     </select>
+    </div>
+
+    <div class="form-group">
+     <label>Discount Value</label>
+     <input id="cValue" type="number" required>
+    </div>
+
+    <div class="form-group">
+     <label>Minimum Order</label>
+     <input id="cMin" type="number" value="0">
+    </div>
+
+    <div class="form-group">
+     <label>Maximum Discount</label>
+     <input id="cMax" type="number" value="100000">
+    </div>
+
+   </div>
+
+   <br>
+
+   <button class="primary">
+    Add Coupon
+   </button>
+
+  </form>
+
+  <hr>
+
+  <div id="couponList"></div>
+
+ </div>
+
+ <div class="panel">
+
+  <h2>📦 All Orders</h2>
+
+  <div id="adminOrders"></div>
+
+ </div>
+
+</section>
+
+</main>
+
+<footer class="footer">
+
+ <div class="footer-grid">
+
+  <div>
+   <h2>Kishor Shopping</h2>
+   <p>
+    Online marketplace demo.
+   </p>
+   <p>© 2026 Kishor Shopping</p>
+  </div>
+
+  <div>
+   <h3>Customer Service</h3>
+   <p>Help Center</p>
+   <p>Track Order</p>
+   <p>Returns</p>
+  </div>
+
+  <div>
+   <h3>Company</h3>
+   <p>About Us</p>
+   <p>Become Seller</p>
+   <p>Contact</p>
+  </div>
+
+  <div>
+   <h3>Policy</h3>
+   <p>Privacy Policy</p>
+   <p>Terms & Conditions</p>
+  </div>
+
+ </div>
+
+</footer>
+
+<!-- MODAL -->
+
+<div id="modal" class="modal">
+
+ <div class="modal-box">
+
+  <div class="modal-head">
+   <h2 id="modalTitle">Account</h2>
+   <button class="close" onclick="closeModal()">✕</button>
+  </div>
+
+  <div id="modalBody"></div>
+
+ </div>
+
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+
+/* ============================
+ DATABASE
+============================ */
+
+const KEY="kishor_shop_v2";
+
+let db=JSON.parse(
+ localStorage.getItem(KEY)
+);
+
+if(!db){
+
+ db={
+  products:[
+   {
+    id:1,
+    name:"Cotton T-Shirt",
+    price:499,
+    old:699,
+    stock:20,
+    category:"Fashion",
+    image:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=700",
+    desc:"Comfortable cotton T-Shirt",
+    seller:"Demo Seller"
+   },
+   {
+    id:2,
+    name:"Sports Shoes",
+    price:999,
+    old:1399,
+    stock:15,
+    category:"Shoes",
+    image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=700",
+    desc:"Comfortable sports shoes",
+    seller:"Demo Seller"
+   },
+   {
+    id:3,
+    name:"Smart Watch",
+    price:1499,
+    old:1999,
+    stock:10,
+    category:"Electronics",
+    image:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=700",
+    desc:"Modern smart watch",
+    seller:"Demo Seller"
+   },
+   {
+    id:4,
+    name:"Home Lamp",
+    price:699,
+    old:999,
+    stock:12,
+    category:"Home",
+    image:"https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=700",
+    desc:"Beautiful home lamp",
+    seller:"Demo Seller"
+   }
+  ],
+
+  cart:[],
+  wishlist:[],
+  orders:[],
+  customers:[],
+  coupons:[
+   {
+    code:"KISHOR100",
+    type:"fixed",
+    value:100,
+    min:500,
+    max:100000
+   },
+   {
+    code:"SAVE10",
+    type:"percent",
+    value:10,
+    min:1000,
+    max:500
+   }
+  ],
+  appliedCoupon:null,
+  user:null
+ };
+
+ save();
+}
+
+function save(){
+ localStorage.setItem(KEY,JSON.stringify(db));
+}
+
+function money(n){
+ return "₹"+Number(n).toLocaleString("en-IN");
+}
+
+function esc(t){
+ return String(t||"")
+ .replace(/&/g,"&amp;")
+ .replace(/</g,"&lt;")
+ .replace(/>/g,"&gt;")
+ .replace(/"/g,"&quot;");
+}
+
+function toast(t){
+ let x=document.getElementById("toast");
+ x.innerText=t;
+ x.classList.add("show");
+ setTimeout(()=>x.classList.remove("show"),2200);
+}
+
+/* ============================
+ PAGE
+============================ */
+
+function showPage(id){
+
+ document.querySelectorAll(".page")
+ .forEach(x=>x.classList.remove("active"));
+
+ document.getElementById(id)
+ .classList.add("active");
+
+ if(id==="home")renderProducts();
+ if(id==="cart")renderCart();
+ if(id==="wishlist")renderWishlist();
+ if(id==="orders")renderOrders();
+ if(id==="admin")renderAdmin();
+
+ window.scrollTo(0,0);
+}
+
+function category(c){
+ document.getElementById("category").value=c;
+ showPage("home");
+}
+
+/* ============================
+ PRODUCTS
+============================ */
+
+function card(p){
+
+ let wish=db.wishlist.includes(p.id);
+
+ return `
+ <div class="product">
+
+  <img
+   src="${p.image}"
+   onerror="this.src='https://via.placeholder.com/500x400?text=Product'"
+  >
+
+  <div class="muted">
+   ${esc(p.category)} · Stock ${p.stock}
+  </div>
+
+  <h3>${esc(p.name)}</h3>
+
+  <div class="rating">
+   ★★★★★
+  </div>
+
+  <div class="desc">
+   ${esc(p.desc)}
+  </div>
+
+  <div class="price">
+   ${money(p.price)}
+   <span class="old">
+    ${p.old?money(p.old):""}
+   </span>
+  </div>
+
+  <div class="actions">
+
+   <button
+    class="primary"
+    onclick="addCart(${p.id})"
+   >
+    🛒 Add
+   </button>
+
+   <button
+    class="light"
+    onclick="wish(${p.id})"
+   >
+    ${wish?"❤️":"♡"}
+   </button>
+
+  </div>
+
+  <button
+   class="light"
+   style="width:100%;margin-top:7px"
+   onclick="details(${p.id})"
+  >
+   View Details
+  </button>
+
+ </div>
+ `;
+}
+
+function renderProducts(){
+
+ let q=document.getElementById("search").value.toLowerCase();
+
+ let c=document.getElementById("category").value;
+
+ let sort=document.getElementById("sort").value;
+
+ let arr=db.products.filter(p=>{
+
+  let match=
+   (p.name+" "+p.category+" "+p.desc)
+   .toLowerCase()
+   .includes(q);
+
+  return match &&
+   (c==="All"||p.category===c);
+ });
+
+ if(sort==="low")
+  arr.sort((a,b)=>a.price-b.price);
+
+ if(sort==="high")
+  arr.sort((a,b)=>b.price-a.price);
+
+ if(sort==="new")
+  arr.sort((a,b)=>b.id-a.id);
+
+ document.getElementById("products").innerHTML=
+  arr.length
+  ?arr.map(card).join("")
+  :"<p>Product नहीं मिला.</p>";
+
+ updateCount();
+}
+
+/* ============================
+ CART
+============================ */
+
+function addCart(id){
+
+ let p=db.products.find(x=>x.id===id);
+
+ if(!p||p.stock<=0){
+  toast("Product out of stock");
+  return;
+ }
+
+ let item=db.cart.find(x=>x.id===id);
+
+ if(item){
+  if(item.qty>=p.stock){
+   toast("इतना stock उपलब्ध नहीं है");
+   return;
+  }
+  item.qty++;
+ }else{
+  db.cart.push({id:id,qty:1});
+ }
+
+ save();
+ updateCount();
+ toast("Cart में add हो गया");
+}
+
+function updateCount(){
+
+ let n=db.cart.reduce((a,b)=>a+b.qty,0);
+
+ document.getElementById("cartCount").innerText=n;
+}
+
+function changeQty(id,n){
+
+ let item=db.cart.find(x=>x.id===id);
+
+ let p=db.products.find(x=>x.id===id);
+
+ if(!item)return;
+
+ item.qty+=n;
+
+ if(item.qty<=0){
+  db.cart=db.cart.filter(x=>x.id!==id);
+ }
+
+ if(p && item.qty>p.stock){
+  item.qty=p.stock;
+  toast("Stock limit reached");
+ }
+
+ save();
+ renderCart();
+ updateCount();
+}
+
+function removeCart(id){
+
+ db.cart=db.cart.filter(x=>x.id!==id);
+
+ save();
+ renderCart();
+ updateCount();
+}
+
+/* ============================
+ COUPON
+============================ */
+
+function applyCoupon(){
+
+ let code=document
+ .getElementById("couponInput")
+ .value
+ .trim()
+ .toUpperCase();
+
+ let msg=document.getElementById("couponMsg");
+
+ if(!code){
+  msg.innerHTML=
+   '<span class="error-text">Coupon code डालें</span>';
+  return;
+ }
+
+ let coupon=db.coupons.find(
+  x=>x.code.toUpperCase()===code
+ );
+
+ if(!coupon){
+  db.appliedCoupon=null;
+  msg.innerHTML=
+   '<span class="error-text">Invalid Coupon Code</span>';
+  renderCart();
+  return;
+ }
+
+ let subtotal=getSubtotal();
+
+ if(subtotal<coupon.min){
+
+  db.appliedCoupon=null;
+
+  msg.innerHTML=
+   `<span class="error-text">
+    Minimum order ${money(coupon.min)} होना चाहिए
+   </span>`;
+
+  renderCart();
+  return;
+ }
+
+ db.appliedCoupon=coupon;
+
+ save();
+
+ msg.innerHTML=
+  `<span class="success-text">
+   ✓ Coupon ${coupon.code} applied successfully
+  </span>`;
+
+ renderCart();
+}
+
+function getSubtotal(){
+
+ return db.cart.reduce((total,item)=>{
+
+  let p=db.products.find(x=>x.id===item.id);
+
+  return total+(p?p.price*item.
